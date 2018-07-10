@@ -2,6 +2,12 @@ requires 'Devel::Cover::Report::Codecov', 0.22;
 requires 'Moose';
 requires 'MooseX::NonMoose';
 requires 'MooseX::StrictConstructor';
+requires 'Module::PluginFinder';
+requires 'Class::Factory';
+requires 'XML::Parser';
+requires 'String::Random';
+requires 'Data::Validate::Domain';
+requires 'Email::Valid';
 
 recommends 'Pod::Usage';
 
