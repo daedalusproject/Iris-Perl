@@ -45,6 +45,23 @@ Iris is a factory.
 
 =cut
 
+=head2 send
+
+Send notification use Iris implementations
+
+=cut
+
+sub send {
+    my $self = shift;
+    self->_send();
+}
+
+=head1 FACTORY
+
+Iris is a factory.
+
+=cut
+
 =head2 Daedalus::Iris::Email
 
 Daedalus::Iris::Email - e-mail driver

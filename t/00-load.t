@@ -2,7 +2,7 @@
 use 5.006;
 use strict;
 use warnings;
-use Test::More tests => 3;
+use Test::More tests => 4;
 use Test::Exception;
 
 BEGIN {
@@ -16,5 +16,9 @@ qr/is not defined in 'Daedalus::Iris'/,
 throws_ok { Daedalus::Iris->_send(); }
 qr/Define _send/,
   "_send function is no defined at implementation";
+
+throws_ok { Daedalus::Iris->_send(); }
+qr/Define _send/,
+  "send function calls _send function which is no defined at implementation";
 
 diag("Testing Daedalus::Iris $Daedalus::Iris::VERSION, Perl $], $^X");

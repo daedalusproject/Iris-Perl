@@ -290,7 +290,7 @@ ok(
             body        => 'Hello',
         }
     ),
-    "Creating and Daedalus::Iris::Email with invalid e-mail should fail."
+    "Creating and Daedalus::Iris::Email."
 );
 
 diag("Testing Daedalus::Iris $Daedalus::Iris::VERSION, Perl $], $^X");
