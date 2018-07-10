@@ -5,6 +5,10 @@ perl:
     - '5.22'
     - '5.20'
 
+
+before_install:
+    - sudo apt-get install -y gcc make libexpat1 libexpat1-dev libxml2-dev zlib1g-dev cpanminus  libnet-ssleay-perl
+
 script: perl Makefile.PL && make &&  make test
 after_success:
     - cover -test
