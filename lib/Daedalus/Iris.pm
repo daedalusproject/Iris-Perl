@@ -53,7 +53,7 @@ Send notification use Iris implementations
 
 sub send {
     my $self = shift;
-    self->_send();
+    $self->_send();
 }
 
 =head1 FACTORY
