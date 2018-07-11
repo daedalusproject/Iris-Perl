@@ -25,6 +25,9 @@ our $VERSION = '0.01';
 
 Service which send notifications (e-mails so far)
 
+Any Iris oject must be instanced with:
+  id -> alphanumeric string
+
 =cut
 
 has 'id' => ( is => 'ro', isa => 'Str', required => 1 );
@@ -47,7 +50,7 @@ Iris is a factory.
 
 =head2 send
 
-Send notification use Iris implementations
+Send notification use Iris implementations.
 
 =cut
 

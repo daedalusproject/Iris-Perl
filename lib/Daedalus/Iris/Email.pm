@@ -26,11 +26,20 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Service which send e-mails so far
+Service which send e-mails
 
+Any Iris object must be instanced with:
+  id -> Iris alphanumeric string
+  smtpserver-> Valid URL containing smpt server
+  smtpport -> Valid server port
+  smtpuser -> SMTP user
+  smtpassword -> SMTP passowrd
+  emailfrom -> SMPT valid e-mail from
+  emailto -> Receiver valid e-mail address
+  subject -> Subject
+  body -> Text of your message
 =cut
 
-has 'id'          => ( is => 'ro', isa => 'Str', required => 1 );
 has 'smtpserver'  => ( is => 'ro', isa => 'Str', required => 1 );
 has 'smtpport'    => ( is => 'ro', isa => 'Int', required => 1 );
 has 'smtpuser'    => ( is => 'ro', isa => 'Str', required => 1 );
