@@ -8,6 +8,9 @@ use Moose;
 use Carp qw /croak/;
 use Data::Validate::Domain qw(is_domain);
 use Email::Valid;
+use Email::Sender::Simple qw(sendmail);
+use Email::Stuffer;
+use Email::Sender::Transport::SMTPS ();
 use base qw( Daedalus::Iris );
 
 use namespace::autoclean;
@@ -75,11 +78,29 @@ sub BUILD {
 
 =head2 _send
 
-Send notification.
+Send e-mail notification.
 
 =cut
 
-#sub _send { die "Define _send() in implementation" }
+sub _send {
+    my $self = shift;
+
+    my $email = Email::Stuffer->from( $self->emailfrom )->to( $self->emailto )
+      ->subject( $self->subject )->html_body( $self->body )->email;
+    my $transport = Email::Sender::Transport::SMTPS->new(
+        {
+            host          => $self->smtpserver,
+            port          => $self->smtpport,
+            ssl           => "starttls",
+            sasl_username => $self->smtpuser,
+            sasl_password => $self->smtpassword,
+
+        }
+    );
+
+    sendmail( $email, { transport => $transport } );
+
+}
 
 =head1 AUTHOR
 
