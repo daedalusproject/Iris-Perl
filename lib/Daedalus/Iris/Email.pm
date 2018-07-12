@@ -8,7 +8,7 @@ use Moose;
 use Carp qw /croak/;
 use Data::Validate::Domain qw(is_domain);
 use Email::Valid;
-use Email::Sender::Simple qw(sendmail);
+use Email::Sender::Simple;
 use Email::Stuffer;
 use Email::Sender::Transport::SMTPS ();
 use base qw( Daedalus::Iris );
@@ -97,7 +97,7 @@ sub _send {
 
         }
     );
-    sendmail( $email, { transport => $transport } );
+    Email::Sender::Simple::sendmail( $email, { transport => $transport } );
 
 }
 
