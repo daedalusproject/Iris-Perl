@@ -97,7 +97,6 @@ sub _send {
 
         }
     );
-
     sendmail( $email, { transport => $transport } );
 
 }
@@ -110,6 +109,7 @@ sub _send {
 
 Please report any bugs or feature requests to C<bug-daedalus-iris at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Daedalus-Iris>.  I will be notified, and then you'll
+use Email::Valid;
 automatically be notified of progress on your bug as I make changes.
 
 
