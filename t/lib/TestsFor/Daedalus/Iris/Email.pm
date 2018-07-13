@@ -5,6 +5,7 @@ use base 'TestsFor';
 
 use Test::MockModule;
 use String::Random;
+use Carp qw /croak/;
 
 use Daedalus::Iris::Email;
 
@@ -15,7 +16,7 @@ sub startup : Tests(startup) {
     my $class = $test->class_to_test;
 }
 
-sub send_email : Tests(1) {
+sub send_email : Tests(2) {
     my $IRIS = Daedalus::Iris->new('email');
 
     my $random_string = new String::Random;
@@ -23,12 +24,12 @@ sub send_email : Tests(1) {
 
     my $mocked_email = mock();
 
-    our $smtpserver   = $ENV{'IRIS_SMTP_SERVER'};
-    our $smtpport     = $ENV{'IRIS_SMTP_PORT'};
-    our $smtpuser     = $ENV{'IRIS_SMTP_USER'};
-    our $smtppassword = $ENV{'IRIS_SMTP_PASSWORD'};
-    our $emailto      = $ENV{'IRIS_EMAIL_TO'};
-    our $emailfrom    = $ENV{'IRIS_EMAIL_FROM'};
+    our $smtpserver   = 'some.server.com';
+    our $smtpport     = '25';
+    our $smtpuser     = 'user';
+    our $smtppassword = 'password';
+    our $emailto      = 'me@example.com';
+    our $emailfrom    = 'no-reply@example.com';
 
     my $iris = $IRIS->new(
         {
@@ -44,14 +45,25 @@ sub send_email : Tests(1) {
         }
     );
 
-    ok $iris->send(), "Send E-mail";
+    is_deeply( $iris->send(), { success => 1, message => "Success" } );
+
+    $mocked_email->mock( 'send',
+        sub { croak "failed AUTH: Authentication Credentials Invalid"; } );
+    is_deeply(
+        $iris->send(),
+        {
+            success => 0,
+            message => "failed AUTH: Authentication Credentials Invalid"
+        }
+    );
 
 }
 
 sub mock {
 
     my $mocked_email = Test::MockModule->new('Email::Sender::Simple');
-    $mocked_email->mock( 'send', sub { return 1; } );
+    $mocked_email->mock( 'send',
+        sub { return { status => 0, message => "Success" }; } );
 
     return $mocked_email;
 
