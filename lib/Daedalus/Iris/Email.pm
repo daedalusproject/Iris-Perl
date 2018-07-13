@@ -11,6 +11,8 @@ use Email::Valid;
 use Email::Sender::Simple qw(sendmail);
 use Email::Stuffer;
 use Email::Sender::Transport::SMTPS ();
+use Try::Tiny;
+
 use base qw( Daedalus::Iris );
 
 use namespace::autoclean;
@@ -85,6 +87,8 @@ Send e-mail notification.
 sub _send {
     my $self = shift;
 
+    my $status = { success => 1, message => "Success" };
+
     my $email = Email::Stuffer->from( $self->emailfrom )->to( $self->emailto )
       ->subject( $self->subject )->html_body( $self->body )->email;
     my $transport = Email::Sender::Transport::SMTPS->new(
@@ -97,8 +101,16 @@ sub _send {
 
         }
     );
-    sendmail( $email, { transport => $transport } );
 
+    try {
+        sendmail( $email, { transport => $transport } );
+    }
+    catch {
+        $status->{success} = 0;
+        $status->{message} = $_;
+    };
+
+    return $status;
 }
 
 =head1 AUTHOR

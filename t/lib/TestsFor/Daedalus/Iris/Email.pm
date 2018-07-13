@@ -48,14 +48,10 @@ sub send_email : Tests(2) {
     is_deeply( $iris->send(), { success => 1, message => "Success" } );
 
     $mocked_email->mock( 'send',
-        sub { croak "failed AUTH: Authentication Credentials Invalid"; } );
-    is_deeply(
-        $iris->send(),
-        {
-            success => 0,
-            message => "failed AUTH: Authentication Credentials Invalid"
-        }
-    );
+        sub { die "failed AUTH: Authentication Credentials Invalid"; } );
+
+    my $status = $iris->send();
+    is $status->{success}, 0, "Send has failed";
 
 }
 
