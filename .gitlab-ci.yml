@@ -19,5 +19,5 @@ unit_tests_using_ubuntu_packaged:
         - apt-get install -y libmoose-perl libmoosex-nonmoose-perl libmoosex-strictconstructor-perl libclass-factory-perl libxml-parser-perl libstring-random-perl libemail-valid-perl libemail-stuffer-perl libmail-transport-perl libdata-validate-domain-perl
     script:
         - perl --version
-        - cpanm --quiet --installdeps --notest t/
+        - cd t && cpanm --quiet --installdeps --notest . && cd ..
         - perl Makefile.PL && make &&  make test
