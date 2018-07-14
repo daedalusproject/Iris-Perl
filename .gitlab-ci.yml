@@ -15,6 +15,8 @@ unit_tests:
 unit_tests_using_ubuntu_packaged:
     stage: test
     before_script:
+        - wget -O - https://repo.daedalus-project.io/repo.daedalus-project.io.gpg-key.pub | sudo apt-key add -
+        - echo "deb [ arch=amd64  ] http://repo.daedalus-project.io/ any daedalus" > /etc/apt/sources.list.d/daedalus-project.list
         - apt-get update -qq && apt-get install -y gcc make libexpat1 libexpat1-dev libxml2-dev zlib1g-dev cpanminus  libnet-ssleay-perl
         - apt-get install -y libmoose-perl libmoosex-nonmoose-perl libmoosex-strictconstructor-perl libclass-factory-perl libxml-parser-perl libstring-random-perl libemail-valid-perl libemail-stuffer-perl libmail-transport-perl libdata-validate-domain-perl
     script:
