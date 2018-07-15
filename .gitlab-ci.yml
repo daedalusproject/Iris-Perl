@@ -40,7 +40,7 @@ run-build:
         - apt-get update -qq
         - echo "deb [ arch=amd64  ] http://repo.daedalus-project.io/ any daedalus" > /etc/apt/sources.list.d/daedalus-project.list
         - apt-get update -qq
-        - apt-get install -y libmoose-perl libmoosex-nonmoose-perl libmoosex-strictconstructor-perl libclass-factory-perl libxml-parser-perl libstring-random-perl libemail-valid-perl libemail-stuffer-perl libmail-transport-perl libdata-validate-domain-perl libmail-transport-perl libemail-sender-transport-smtps-perl libmodule-pluginfinder-perl libtest-most-perl libtest-mockmodule-perl
+        - apt-get install -y libmoose-perl libmoosex-nonmoose-perl libmoosex-strictconstructor-perl libclass-factory-perl libxml-parser-perl libstring-random-perl libemail-valid-perl libemail-stuffer-perl libmail-transport-perl libdata-validate-domain-perl libmail-transport-perl libemail-sender-transport-smtps-perl libmodule-pluginfinder-perl libtest-most-perl libtest-mockmodule-perl libtest-class-perl
         - apt-get install -y dh-make-perl dpkg-dev
         - dpkg-buildpackage -uc -b
         - mkdir build
