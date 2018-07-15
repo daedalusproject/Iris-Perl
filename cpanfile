@@ -8,6 +8,10 @@ requires 'XML::Parser';
 requires 'String::Random';
 requires 'Data::Validate::Domain';
 requires 'Email::Valid';
+requires 'Email::Stuffer';
+requires 'Email::Sender::Transport::SMTPS';
+requires 'Test::Most';
+requires 'Test::MockModule';
 
 recommends 'Pod::Usage';
 

@@ -2,7 +2,7 @@
 use 5.006;
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More tests => 17;
 use Test::Exception;
 use String::Random;
 
@@ -267,7 +267,7 @@ throws_ok {
             smtpuser    => 'someuser',
             smtpassword => 'somepassword',
             emailfrom   => 'some@example.com',
-            emailto     => 'othernonsenseemail',
+            emailto     => 'otherbrokenexample.com',
             subject     => 'some imporant subject',
             body        => 'Hello',
         }
@@ -275,5 +275,22 @@ throws_ok {
 }
 qr/emailto value must be a valid e-mail address/,
   "Creating and Daedalus::Iris::Email with invalid e-mail should fail.";
+
+ok(
+    $IRIS->new(
+        {
+            id          => $random,
+            smtpserver  => 'valid.url.net',
+            smtpport    => 25,
+            smtpuser    => 'someuser',
+            smtpassword => 'somepassword',
+            emailfrom   => 'some@example.com',
+            emailto     => 'other@example.com',
+            subject     => 'some imporant subject',
+            body        => 'Hello',
+        }
+    ),
+    "Creating and Daedalus::Iris::Email."
+);
 
 diag("Testing Daedalus::Iris $Daedalus::Iris::VERSION, Perl $], $^X");

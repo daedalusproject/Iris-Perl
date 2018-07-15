@@ -8,6 +8,11 @@ use Moose;
 use Carp qw /croak/;
 use Data::Validate::Domain qw(is_domain);
 use Email::Valid;
+use Email::Sender::Simple qw(sendmail);
+use Email::Stuffer;
+use Email::Sender::Transport::SMTPS ();
+use Try::Tiny;
+
 use base qw( Daedalus::Iris );
 
 use namespace::autoclean;
@@ -26,11 +31,20 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Service which send e-mails so far
+Service which send e-mails
 
+Any Iris object must be instanced with:
+  id -> Iris alphanumeric string
+  smtpserver-> Valid URL containing smpt server
+  smtpport -> Valid server port
+  smtpuser -> SMTP user
+  smtpassword -> SMTP passowrd
+  emailfrom -> SMPT valid e-mail from
+  emailto -> Receiver valid e-mail address
+  subject -> Subject
+  body -> Text of your message
 =cut
 
-has 'id'          => ( is => 'ro', isa => 'Str', required => 1 );
 has 'smtpserver'  => ( is => 'ro', isa => 'Str', required => 1 );
 has 'smtpport'    => ( is => 'ro', isa => 'Int', required => 1 );
 has 'smtpuser'    => ( is => 'ro', isa => 'Str', required => 1 );
@@ -66,11 +80,38 @@ sub BUILD {
 
 =head2 _send
 
-Send notification.
+Send e-mail notification.
 
 =cut
 
-#sub _send { die "Define _send() in implementation" }
+sub _send {
+    my $self = shift;
+
+    my $status = { success => 1, message => "Success" };
+
+    my $email = Email::Stuffer->from( $self->emailfrom )->to( $self->emailto )
+      ->subject( $self->subject )->html_body( $self->body )->email;
+    my $transport = Email::Sender::Transport::SMTPS->new(
+        {
+            host          => $self->smtpserver,
+            port          => $self->smtpport,
+            ssl           => "starttls",
+            sasl_username => $self->smtpuser,
+            sasl_password => $self->smtpassword,
+
+        }
+    );
+
+    try {
+        sendmail( $email, { transport => $transport } );
+    }
+    catch {
+        $status->{success} = 0;
+        $status->{message} = $_;
+    };
+
+    return $status;
+}
 
 =head1 AUTHOR
 
@@ -80,6 +121,7 @@ Send notification.
 
 Please report any bugs or feature requests to C<bug-daedalus-iris at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Daedalus-Iris>.  I will be notified, and then you'll
+use Email::Valid;
 automatically be notified of progress on your bug as I make changes.
 
 
