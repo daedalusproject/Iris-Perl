@@ -2,13 +2,13 @@
 
 [![pipeline status](https://git.daedalus-project.io/daedalusproject/Iris-Perl/badges/master/pipeline.svg)](https://git.daedalus-project.io/daedalusproject/Iris-Perl/commits/master)[![Build Status](https://travis-ci.org/daedalusproject/Iris-Perl.svg?branch=develop)](https://travis-ci.org/daedalusproject/Iris-Perl)[![codecov](https://codecov.io/gh/daedalusproject/Iris-Perl/branch/develop/graph/badge.svg)](https://codecov.io/gh/daedalusproject/Iris-Perl)
 
-Daedalus Project Notification sender service. Send any type of notification thrught, emails, slack, etc
+Daedalus Project Notification sender service. Send any type of notification through, emails, slack, etc
 
 ## e-mails
 
 Iris::Emails is able to send e-mails using ssl 'starttls' smtp server (I am currently using AWS SES)
 
-****example*
+**example**
 
 ```perl
 use Daedalus::Iris;
