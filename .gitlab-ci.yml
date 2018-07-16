@@ -30,7 +30,7 @@ unit_tests_using_ubuntu_packages:
 run-build:
     stage: build
     only:
-        - master
+        - /^v-.*$/
     artifacts:
         paths:
             - build/*
