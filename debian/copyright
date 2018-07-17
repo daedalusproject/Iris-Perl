@@ -1,5 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://metacpan.org/release/Daedalus-Iris
+Source: https://git.daedalus-project.io/daedalusproject/Iris-Perl
 Upstream-Contact: Álvaro Castellano Vela, <alvaro.castellano.vela at gmail.com>
 Upstream-Name: Daedalus-Iris
 DISCLAIMER: This copyright info was automatically extracted
