@@ -9,6 +9,6 @@ Homepage: https://git.daedalus-project.io/daedalusproject/Iris-Perl
 
 Package: libdaedalus-iris-perl
 Architecture: all
-Depends: libmoose-perl, libmoosex-nonmoose-perl, libmoosex-strictconstructor-perl, libclass-factory-perl, libxml-parser-perl, libstring-random-perl, libemail-valid-perl, libemail-stuffer-perl, libmail-transport-perl, libdata-validate-domain-perl, libmail-transport-perl, libemail-sender-transport-smtps-perl, libmodule-pluginfinder-perl, ${misc:Depends}, ${perl:Depends}
+Depends: libmoose-perl, libmoosex-nonmoose-perl, libmoosex-strictconstructor-perl, libclass-factory-perl, libxml-parser-perl, libstring-random-perl, libemail-valid-perl, libemail-stuffer-perl, libmail-transport-perl, libdata-validate-domain-perl, libmail-transport-perl, libemail-sender-transport-smtps-perl, libmodule-pluginfinder-perl, libnet-smtps-perl, ${misc:Depends}, ${perl:Depends}
 Description: Daedalus::Iris
   Daedalus Project Notification sender service. Send any type of notification through, emails, slack, etc
